@@ -4,6 +4,6 @@
     {
         string Encrypte(string text, string key);
         string Decrypte(string text, string key);
-        string BuildKey(long beginState);
+        string BuildKey(ulong beginState, ushort length);
     }
 }

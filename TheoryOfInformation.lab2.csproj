@@ -58,7 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Encryptions\Models\IEncryption.cs" />
     <Compile Include="Encryptions\Models\LFRS.cs" />
-    <Compile Include="Encryptions\TextCleaner.cs" />
+    <Compile Include="Encryptions\TextWorker.cs" />
     <Compile Include="FileWindow.xaml.cs">
       <DependentUpon>FileWindow.xaml</DependentUpon>
     </Compile>

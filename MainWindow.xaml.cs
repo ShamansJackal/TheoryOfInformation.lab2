@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using TheoryOfInformation.lab1.Encryptions;
 using TheoryOfInformation.lab1.Encryptions.Models;
-using static TheoryOfInformation.lab1.Encryptions.TextCleaner;
+using static TheoryOfInformation.lab1.Encryptions.TextWorker;
 
 namespace TheoryOfInformation.lab1
 {
