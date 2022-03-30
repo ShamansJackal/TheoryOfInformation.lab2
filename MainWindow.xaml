@@ -42,13 +42,8 @@
 
             <Button DockPanel.Dock="Left" Content="Обработать" Click="Button_Click" Margin="4" Padding="4"></Button>
             <TextBox x:Name="keyBox" DockPanel.Dock="Bottom" Margin="4" FontSize="16" TextWrapping="NoWrap" AcceptsReturn="False" Text="Ключ"/>
+            <Label Content="ключ 30/30"/>
 
-            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1" Margin="4">
-                <StackPanel> 
-                    <Label FontSize="12" Content="Способ шифрования:" Height="26"/>
-                    <ComboBox Name="encryptionsBox" ItemsSource="{Binding ecncryptions}" SelectionChanged="encryptionsBox_SelectionChanged" Margin="4"></ComboBox>
-                </StackPanel>
-            </Border>
         </DockPanel>
         
         <local:TextWindow x:Name="textUnit_in" Width="Auto" Height="Auto" Grid.Row="1"/>

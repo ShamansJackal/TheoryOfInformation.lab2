@@ -57,12 +57,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Encryptions\Models\IEncryption.cs" />
+    <Compile Include="Encryptions\Models\LFRS.cs" />
     <Compile Include="Encryptions\TextCleaner.cs" />
     <Compile Include="FileWindow.xaml.cs">
       <DependentUpon>FileWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Structs\LangIds.cs" />
-    <Compile Include="Structs\RemovedSymbl.cs" />
     <Compile Include="TextWindow.xaml.cs">
       <DependentUpon>TextWindow.xaml</DependentUpon>
     </Compile>
@@ -113,6 +112,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Structs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

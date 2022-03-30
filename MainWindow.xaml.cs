@@ -16,15 +16,12 @@ namespace TheoryOfInformation.lab1
         private bool readFromFile;
         private bool writeToFile;
         private bool encode;
-        private IEnumerable<IEncryption> ecncryptions;
         private IEncryption encryption;
 
         public MainWindow()
         {
-            ecncryptions = new List<IEncryption>() { };
             InitializeComponent();
-            encryptionsBox.ItemsSource = ecncryptions;
-            encryptionsBox.SelectedIndex = 1;
+            encryption = new LFRS();
             inTextCheck_ib.IsChecked = true;
             inTextCheck_out.IsChecked = true;
         }
@@ -63,14 +60,6 @@ namespace TheoryOfInformation.lab1
 
         private void RadioButton_Checked_1(object sender, RoutedEventArgs e) => encode = encCheck.IsChecked.Value;
 
-        private void encryptionsBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox cmb = sender as ComboBox;
-
-            IEncryption selected = cmb.SelectedItem as IEncryption;
-            encryption = selected;
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string text;
@@ -91,19 +80,14 @@ namespace TheoryOfInformation.lab1
             if (encode) operation = encryption.Encrypte;
             else operation = encryption.Decrypte;
 
-            CleanText(ref key, encryption.KeyLang);
-
-            string result = WorkWithText(key, text, operation, encryption.Lang);
-            result = string.IsNullOrWhiteSpace(result) ? "Не валидные данные" : result;
-
             if (writeToFile)
             {
                 string path = fileUnit_out.OutputFile.Text;
-                File.WriteAllText(path, result);
+                File.WriteAllText(path, null);
             }
             else
             {
-                textUnit_out.outputText.Text = result;
+                textUnit_out.outputText.Text = null;
             }
         }
     }
