@@ -1,0 +1,61 @@
+﻿<Window x:Class="TheoryOfInformation.lab1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TheoryOfInformation.lab1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="925.712">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top" LastChildFill="True">
+            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1"  Width="160" DockPanel.Dock="Right" Margin="4">
+                <StackPanel>
+                    <Label FontSize="12" Content="Кодировать/Декодировать" Height="26"/>
+                    <RadioButton GroupName="EncryptWay" Name="encCheck" Content="Шифровать" Checked="RadioButton_Checked_1" IsChecked="True" Margin="4,3,0,0" Height="21" />
+                    <RadioButton GroupName="EncryptWay" Name="decCheck" Content="Расшифровать" Checked="RadioButton_Checked_1" Margin="4,0,0,0" Height="21" />
+                </StackPanel>
+            </Border>
+
+            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1"  Width="120" DockPanel.Dock="Right" Margin="4">
+                <StackPanel>
+                    <Label FontSize="12" Content="Вывод:" Height="26"/>
+                    <RadioButton Checked="outFileCheck_Checked" GroupName="Output" Name="inFileCheck_out" Content="Файл" Margin="4,3,0,0" Height="21" />
+                    <RadioButton GroupName="Output" Checked="outFileCheck_Checked" Name="inTextCheck_out" Content="Интерфейс" Margin="4,0,0,0" Height="21" />
+                </StackPanel>
+            </Border>
+
+            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1"  Width="120" DockPanel.Dock="Right" Margin="4">
+                <StackPanel>
+                    <Label FontSize="12" Content="Ввод:" Height="26"/>
+                    <RadioButton Checked="inFileCheck_Checked" GroupName="Input" Name="inFileCheck_in" Content="Файл" Margin="4,3,0,0" Height="21" />
+                    <RadioButton GroupName="Input" Checked="inFileCheck_Checked" Name="inTextCheck_ib" Content="Интерфейс" Margin="4,0,0,0" Height="21" />
+                </StackPanel>
+            </Border>
+
+            <Button DockPanel.Dock="Left" Content="Обработать" Click="Button_Click" Margin="4" Padding="4"></Button>
+            <TextBox x:Name="keyBox" DockPanel.Dock="Bottom" Margin="4" FontSize="16" TextWrapping="NoWrap" AcceptsReturn="False" Text="Ключ"/>
+
+            <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1" Margin="4">
+                <StackPanel> 
+                    <Label FontSize="12" Content="Способ шифрования:" Height="26"/>
+                    <ComboBox Name="encryptionsBox" ItemsSource="{Binding ecncryptions}" SelectionChanged="encryptionsBox_SelectionChanged" Margin="4"></ComboBox>
+                </StackPanel>
+            </Border>
+        </DockPanel>
+        
+        <local:TextWindow x:Name="textUnit_in" Width="Auto" Height="Auto" Grid.Row="1"/>
+        <local:TextWindow x:Name="textUnit_out" Width="Auto" Height="Auto" Grid.Row="1" Grid.Column="1"/>
+        <local:FileWindow x:Name="fileUnit_in" Width="Auto" Height="Auto" Grid.Row="1"/>
+        <local:FileWindow x:Name="fileUnit_out" Width="Auto" Height="Auto" Grid.Row="1" Grid.Column="1"/>
+        
+        
+    </Grid>
+</Window>
