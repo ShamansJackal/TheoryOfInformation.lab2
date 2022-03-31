@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using TheoryOfInformation.lab1.Encryptions;
 using TheoryOfInformation.lab1.Encryptions.Models;
 using static TheoryOfInformation.lab1.Encryptions.TextWorker;
@@ -14,31 +17,22 @@ namespace TheoryOfInformation.lab1
     public partial class MainWindow : Window
     {
         private bool readFromFile;
-        private bool writeToFile;
         private bool encode;
+        public bool visualisation { get; set; } = true;
         private IEncryption encryption;
 
         public MainWindow()
         {
             InitializeComponent();
-            encryption = new LFRS();
+            encryption = new LFRS(new ushort[] { 1,4 }, 4);
             inTextCheck_ib.IsChecked = true;
-            inTextCheck_out.IsChecked = true;
         }
 
-        private void outFileCheck_Checked(object sender, RoutedEventArgs e)
+        private void textBox1_KeyPress(object sender, KeyEventArgs e)
         {
-            if (inFileCheck_out.IsChecked.Value)
+            if (e.Key == Key.D0 || e.Key == Key.D1)
             {
-                fileUnit_out.Visibility = Visibility.Visible;
-                textUnit_out.Visibility = Visibility.Hidden;
-                writeToFile = true;
-            }
-            else
-            {
-                fileUnit_out.Visibility = Visibility.Hidden;
-                textUnit_out.Visibility = Visibility.Visible;
-                writeToFile = false;
+                e.Handled = true;
             }
         }
 
@@ -66,6 +60,7 @@ namespace TheoryOfInformation.lab1
             Operation operation;
 
             string key = keyBox.Text;
+            var s = encryption.BuildKey(15, 16);
 
             if (readFromFile)
             {
@@ -80,15 +75,26 @@ namespace TheoryOfInformation.lab1
             if (encode) operation = encryption.Encrypte;
             else operation = encryption.Decrypte;
 
-            if (writeToFile)
-            {
-                string path = fileUnit_out.OutputFile.Text;
-                File.WriteAllText(path, null);
-            }
+        }
+
+        private void keyBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !e.Text.All(IsGood);
+        }
+
+        private void OnPasting(object sender, DataObjectPastingEventArgs e)
+        {
+            var stringData = (string)e.DataObject.GetData(typeof(string));
+            if (stringData == null || !stringData.All(IsGood))
+                e.CancelCommand();
+        }
+
+        bool IsGood(char c)
+        {
+            if (c == '0' || c == '1')
+                return true;
             else
-            {
-                textUnit_out.outputText.Text = null;
-            }
+                return false;
         }
     }
 }
