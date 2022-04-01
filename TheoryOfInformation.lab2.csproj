@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Encryptions\Models\IEncryption.cs" />
+    <Compile Include="Encryptions\Models\LFRS_fast.cs" />
     <Compile Include="Encryptions\Models\LFRS.cs" />
     <Compile Include="Encryptions\TextWorker.cs" />
     <Compile Include="FileWindow.xaml.cs">

@@ -7,17 +7,9 @@ using static TheoryOfInformation.lab1.Encryptions.TextWorker;
 
 namespace TheoryOfInformation.lab1.Encryptions.Models
 {
-    public class LFRS : IEncryption
+    public class LFRS_fast : IEncryption
     {
-        private int _size;
-        private IEnumerable<ushort> _polyMorph;
-        public LFRS(ushort[] manyDicks, ushort power)
-        {
-            if (manyDicks.Any(x => x > power)) throw new Exception("бит отвественный за формирование ключ должен быть меньше степени много члена");
-
-            _size = power;
-            _polyMorph = manyDicks.Select(x => (ushort)(x - 1));
-        }
+        private int _size = 4;
         public string BuildKey(ulong beginState, ulong length)
         {
             if (beginState > (ulong)((1 << (_size + 1)) - 1)) throw new Exception("число выходит за регистер");
@@ -27,14 +19,13 @@ namespace TheoryOfInformation.lab1.Encryptions.Models
             for (ulong i = 0; i < length; i++)
             {
                 ushort rigthBit = 0;
-                foreach (ushort item in _polyMorph)
+
+                rigthBit += (ushort)((state & (ulong)(1 << 34)) >> 34);
+                rigthBit += (ushort)((state & (ulong)(1 << 15)) >> 15);
+                rigthBit += (ushort)((state & (ulong)(1 << 14)) >> 14);
+                if (rigthBit > 1)
                 {
-                    rigthBit += (ushort)((state & (ulong)(1 << item)) >> item);
-                    if (rigthBit > 1)
-                    {
-                        rigthBit = 0;
-                        break;
-                    }
+                    rigthBit = 0;
                 }
                 state = (state << 1) + rigthBit;
                 builder = builder.Append((state & (ulong)(1 << _size)) > 0 ? "1" : "0");
@@ -52,14 +43,13 @@ namespace TheoryOfInformation.lab1.Encryptions.Models
             for (ulong i = 0; i < lengthOfBytes << 3; i++)
             {
                 ushort rigthBit = 0;
-                foreach (ushort item in _polyMorph)
+
+                //rigthBit += (ushort)((state & (1 << 34)) >> 34);
+                rigthBit += (ushort)((state & (1 << 3)) >> 3);
+                rigthBit += (ushort)((state & (1 << 0)) >> 0);
+                if (rigthBit > 1)
                 {
-                    rigthBit += (ushort)((state & (ulong)(1 << item)) >> item);
-                    if (rigthBit > 1)
-                    {
-                        rigthBit = 0;
-                        break;
-                    }
+                    rigthBit = 0;
                 }
                 state = (state << 1) + rigthBit;
                 result[i >> 3] = (byte)((result[i >> 3] << 1) + (byte)(state >> _size));
