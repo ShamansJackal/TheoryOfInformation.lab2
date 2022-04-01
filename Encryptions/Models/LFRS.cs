@@ -18,13 +18,13 @@ namespace TheoryOfInformation.lab1.Encryptions.Models
             _size = power;
             _polyMorph = manyDicks.Select(x => (ushort)(x - 1));
         }
-        public string BuildKey(ulong beginState, ushort length)
+        public string BuildKey(ulong beginState, ulong length)
         {
             if (beginState > (ulong)((1 << (_size + 1)) - 1)) throw new Exception("число выходит за регистер");
 
             StringBuilder builder = new StringBuilder();
             ulong state = beginState;
-            for (ushort i = 0; i < length; i++)
+            for (ulong i = 0; i < length; i++)
             {
                 ushort rigthBit = 0;
                 foreach (ushort item in _polyMorph)
@@ -50,7 +50,7 @@ namespace TheoryOfInformation.lab1.Encryptions.Models
 
         public BigInteger Encrypte(BigInteger text, BigInteger key)
         {
-            throw new NotImplementedException();
+            return text ^ key;
         }
     }
 }
