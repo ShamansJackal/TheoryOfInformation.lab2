@@ -1,9 +1,11 @@
-﻿namespace TheoryOfInformation.lab1.Encryptions.Models
+﻿using System.Numerics;
+
+namespace TheoryOfInformation.lab1.Encryptions.Models
 {
     public interface IEncryption
     {
-        string Encrypte(string text, string key);
-        string Decrypte(string text, string key);
         string BuildKey(ulong beginState, ushort length);
+        byte[] Encrypte(byte[] file, byte[] key);
+        BigInteger Encrypte(BigInteger text, BigInteger key);
     }
 }

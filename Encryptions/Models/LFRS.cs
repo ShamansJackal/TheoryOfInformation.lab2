@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using static TheoryOfInformation.lab1.Encryptions.TextWorker;
 
@@ -12,17 +13,21 @@ namespace TheoryOfInformation.lab1.Encryptions.Models
         private IEnumerable<ushort> _polyMorph;
         public LFRS(ushort[] manyDicks, ushort power)
         {
+            if (manyDicks.Any(x => x > power)) throw new Exception("бит отвественный за формирование ключ должен быть меньше степени много члена");
+
             _size = power;
             _polyMorph = manyDicks.Select(x => (ushort)(x - 1));
         }
         public string BuildKey(ulong beginState, ushort length)
         {
+            if (beginState > (ulong)((1 << (_size + 1)) - 1)) throw new Exception("число выходит за регистер");
+
             StringBuilder builder = new StringBuilder();
             ulong state = beginState;
             for (ushort i = 0; i < length; i++)
             {
                 ushort rigthBit = 0;
-                foreach (var item in _polyMorph)
+                foreach (ushort item in _polyMorph)
                 {
                     rigthBit += (ushort)((state & (ulong)(1 << item)) >> item);
                     if (rigthBit > 1)
@@ -32,18 +37,18 @@ namespace TheoryOfInformation.lab1.Encryptions.Models
                     }
                 }
                 state = (state << 1) + rigthBit;
-                builder.Append((state & (ulong)(1 << _size)) > 0 ? "1" : "0");
+                builder = builder.Append((state & (ulong)(1 << _size)) > 0 ? "1" : "0");
                 state ^= (ulong)(1 << _size);
             }
             return builder.ToString();
         }
 
-        public string Decrypte(string text, string key)
+        public byte[] Encrypte(byte[] file, byte[] key)
         {
             throw new NotImplementedException();
         }
 
-        public string Encrypte(string text, string key)
+        public BigInteger Encrypte(BigInteger text, BigInteger key)
         {
             throw new NotImplementedException();
         }
