@@ -16,6 +16,7 @@ namespace TheoryOfInformation.lab1
     /// </summary>
     public partial class FileWindow : UserControl
     {
+        public bool encrypt = true;
         public FileWindow()
         {
             InitializeComponent();
@@ -26,7 +27,7 @@ namespace TheoryOfInformation.lab1
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Multiselect = false,
-                Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
+                Filter = encrypt ? "All files (*.*)|*.*" : "Encrypted files (*.data)|*.data|All files (*.*)|*.*",
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
             };
             if (openFileDialog.ShowDialog() == true)

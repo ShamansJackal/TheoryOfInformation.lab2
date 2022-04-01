@@ -8,8 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <DockPanel VerticalAlignment="Top" LastChildFill="True">
-            <Button Padding="3" Margin="4" DockPanel.Dock="Right"  Content="Открыть" Click="InputFile_Click" Tag="выходной файл"/>
-            <TextBox Margin="4" x:Name="OutputFile" FontSize="16" Text="{Binding ElementName=OutputFile, Path=Tag}" />
+            <Button x:Name="OpenFileBTN" Padding="3" Margin="4" DockPanel.Dock="Right"  Content="Открыть" Click="InputFile_Click" Tag="выходной файл"/>
+            <TextBox Margin="4" x:Name="OutputFile" FontSize="16" Text="{Binding ElementName=OpenFileBTN, Path=Tag}" />
         </DockPanel>
     </Grid>
 </UserControl>
