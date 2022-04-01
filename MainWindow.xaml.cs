@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,24 +16,25 @@ namespace TheoryOfInformation.lab1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool readFromFile;
-        private bool encode;
-        public bool visualisation { get; set; } = true;
-        private IEncryption encryption;
+        private bool _readFromFile = true;
+        private ushort _polynomePower = 4;
+
+        private IEncryption _encryption;
+
+        private bool _encode = false;
+        private bool Encode { get => _encode; set { if (fileUnit_in != null) fileUnit_in.encrypt = value; _encode = value; } }
+        public bool _visualisation { get; set; }
+
 
         public MainWindow()
         {
-            InitializeComponent();
-            encryption = new LFRS(new ushort[] { 1,4 }, 4);
-            inTextCheck_ib.IsChecked = true;
-        }
+            _encryption = new LFRS(new ushort[] { 1, 4 }, _polynomePower);
 
-        private void textBox1_KeyPress(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.D0 || e.Key == Key.D1)
-            {
-                e.Handled = true;
-            }
+            InitializeComponent();
+            keyBox.Text = "Ключ";
+            keyBox.MaxLength = _polynomePower;
+            inTextCheck_ib.IsChecked = true;
+            encCheck.IsChecked = true;
         }
 
         private void inFileCheck_Checked(object sender, RoutedEventArgs e)
@@ -42,27 +43,26 @@ namespace TheoryOfInformation.lab1
             {
                 fileUnit_in.Visibility = Visibility.Visible;
                 textUnit_in.Visibility = Visibility.Hidden;
-                readFromFile = true;
+                _readFromFile = true;
             }
             else
             {
                 fileUnit_in.Visibility = Visibility.Hidden;
                 textUnit_in.Visibility = Visibility.Visible;
-                readFromFile = false;
+                _readFromFile = false;
             }
         }
 
-        private void RadioButton_Checked_1(object sender, RoutedEventArgs e) => encode = encCheck.IsChecked.Value;
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e) => Encode = encCheck.IsChecked.Value;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string text;
-            Operation operation;
 
             string key = keyBox.Text;
-            var s = encryption.BuildKey(15, 16);
+            var s = _encryption.BuildKey(15, 16);
 
-            if (readFromFile)
+            if (_readFromFile)
             {
                 string path = fileUnit_in.OutputFile.Text;
                 text = File.ReadAllText(path);
@@ -72,8 +72,7 @@ namespace TheoryOfInformation.lab1
                 text = textUnit_in.outputText.Text;
             }
 
-            if (encode) operation = encryption.Encrypte;
-            else operation = encryption.Decrypte;
+            if (Encode) ;
 
         }
 
@@ -95,6 +94,11 @@ namespace TheoryOfInformation.lab1
                 return true;
             else
                 return false;
+        }
+
+        private void keyBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            KeyLengthLabel.Content = $"Длина ключа {((TextBox)sender).Text.Length}/{_polynomePower}";
         }
     }
 }

@@ -15,29 +15,29 @@
             <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1"  Width="160" DockPanel.Dock="Right" Margin="4">
                 <StackPanel>
                     <Label FontSize="12" Content="Кодировать/Декодировать" Height="26"/>
-                    <RadioButton GroupName="EncryptWay" Name="encCheck" Content="Шифровать" Checked="RadioButton_Checked_1" IsChecked="True" Margin="4,3,0,0" Height="21" />
-                    <RadioButton GroupName="EncryptWay" Name="decCheck" Content="Расшифровать" Checked="RadioButton_Checked_1" Margin="4,0,0,0" Height="21" />
+                    <RadioButton GroupName="EncryptWay" Name="encCheck" Content="Шифровать" Checked="RadioButton_Checked_1" Margin="4,3,0,0" Height="21"/>
+                    <RadioButton GroupName="EncryptWay" Name="decCheck" Content="Расшифровать" Margin="4,0,0,0" Height="21"/>
                 </StackPanel>
             </Border>
 
             <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1"  Width="120" DockPanel.Dock="Right" Margin="4">
                 <StackPanel>
                     <Label FontSize="12" Content="Вывод:" Height="26"/>
-                    <CheckBox Content="Визуализация:" IsChecked="{Binding ElementName=mainWindow, Path=visualisation, Mode=TwoWay}"/>
+                    <CheckBox Content="Визуализация:" IsChecked="{Binding ElementName=mainWindow, Path=_visualisation, Mode=TwoWay}"/>
                 </StackPanel>
             </Border>
 
             <Border Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1"  Width="120" DockPanel.Dock="Right" Margin="4">
                 <StackPanel>
                     <Label FontSize="12" Content="Ввод:" Height="26"/>
-                    <RadioButton Checked="inFileCheck_Checked" GroupName="Input" Name="inFileCheck_in" Content="Файл" Margin="4,3,0,0" Height="21" />
-                    <RadioButton GroupName="Input" Checked="inFileCheck_Checked" Name="inTextCheck_ib" Content="Интерфейс" Margin="4,0,0,0" Height="21" />
+                    <RadioButton Checked="inFileCheck_Checked" GroupName="Input" Name="inFileCheck_in" Content="Файл" Margin="4,3,0,0" Height="21"/>
+                    <RadioButton Checked="inFileCheck_Checked" GroupName="Input" Name="inTextCheck_ib" Content="Интерфейс" Margin="4,0,0,0" Height="21" />
                 </StackPanel>
             </Border>
 
             <Button DockPanel.Dock="Left" Content="Обработать" Click="Button_Click" Margin="4" Padding="4"></Button>
-            <TextBox MaxLength="4" PreviewTextInput="keyBox_PreviewTextInput" x:Name="keyBox" DockPanel.Dock="Bottom" Margin="4" FontSize="16" TextWrapping="NoWrap" AcceptsReturn="False" Text="Ключ"/>
-            <Label Content="ключ 30/30"/>
+            <TextBox MaxLines="1" MaxLength="4" TextChanged="keyBox_TextChanged" PreviewTextInput="keyBox_PreviewTextInput" x:Name="keyBox" DockPanel.Dock="Bottom" Margin="4" FontSize="16" TextWrapping="NoWrap" AcceptsReturn="False"/>
+            <Label Name="KeyLengthLabel" Content="ключ 30/30"/>
 
         </DockPanel>
 
