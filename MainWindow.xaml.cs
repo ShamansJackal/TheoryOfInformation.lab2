@@ -1,6 +1,8 @@
-﻿ using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -57,23 +59,29 @@ namespace TheoryOfInformation.lab1
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string text;
 
-            string key = keyBox.Text;
-            var s = _encryption.BuildKey(15, 16);
+            ulong beginState = Convert.ToUInt64(keyBox.Text, 2);
 
             if (_readFromFile)
             {
                 string path = fileUnit_in.OutputFile.Text;
-                text = File.ReadAllText(path);
+                var text = File.ReadAllText(path);
             }
             else
             {
-                text = textUnit_in.outputText.Text;
+                string text = textUnit_in.outputText.Text;
+                BigInteger bigInteger = BinToDec(text);
+
+                string keyStr = _encryption.BuildKey(beginState, (ulong)textUnit_in.outputText.Text.Length);
+                BigInteger key = BinToDec(keyStr);
+
+                BigInteger result = _encryption.Encrypte(bigInteger, key);
+                string resBin = result.IntToBin();
+                if (resBin[0] == '0') resBin = resBin.Substring(1);
+                resBin = string.Concat(Enumerable.Repeat("0", text.Length-resBin.Length)) + resBin;
+
+                textUnit_in.outputText2.Text = resBin;
             }
-
-            if (Encode) ;
-
         }
 
         private void keyBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -99,6 +107,7 @@ namespace TheoryOfInformation.lab1
         private void keyBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             KeyLengthLabel.Content = $"Длина ключа {((TextBox)sender).Text.Length}/{_polynomePower}";
+            MainBTN.IsEnabled = ((TextBox)sender).Text.Length == _polynomePower;
         }
     }
 }

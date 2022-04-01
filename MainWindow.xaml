@@ -35,7 +35,7 @@
                 </StackPanel>
             </Border>
 
-            <Button DockPanel.Dock="Left" Content="Обработать" Click="Button_Click" Margin="4" Padding="4"></Button>
+            <Button x:Name="MainBTN" DockPanel.Dock="Left" Content="Обработать" Click="Button_Click" Margin="4" Padding="4"></Button>
             <TextBox MaxLines="1" MaxLength="4" TextChanged="keyBox_TextChanged" PreviewTextInput="keyBox_PreviewTextInput" x:Name="keyBox" DockPanel.Dock="Bottom" Margin="4" FontSize="16" TextWrapping="NoWrap" AcceptsReturn="False"/>
             <Label Name="KeyLengthLabel" Content="ключ 30/30"/>
 

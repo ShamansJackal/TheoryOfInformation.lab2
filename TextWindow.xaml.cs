@@ -24,5 +24,24 @@ namespace TheoryOfInformation.lab1
         {
             InitializeComponent();
         }
+        private void keyBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !e.Text.All(IsGood);
+        }
+
+        private void OnPasting(object sender, DataObjectPastingEventArgs e)
+        {
+            var stringData = (string)e.DataObject.GetData(typeof(string));
+            if (stringData == null || !stringData.All(IsGood))
+                e.CancelCommand();
+        }
+
+        bool IsGood(char c)
+        {
+            if (c == '0' || c == '1')
+                return true;
+            else
+                return false;
+        }
     }
 }

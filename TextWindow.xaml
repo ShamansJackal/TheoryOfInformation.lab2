@@ -7,6 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBox x:Name="outputText" Margin="4" FontSize="16" Text="Вывод"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="outputText" TextWrapping="Wrap" PreviewTextInput="keyBox_PreviewTextInput" Margin="4" FontSize="16" Text="Вывод"/>
+        <TextBox x:Name="outputText2" TextWrapping="Wrap" Margin="4" FontSize="16" Text="Вывод" Grid.Row="1"/>
     </Grid>
 </UserControl>
