@@ -16,7 +16,7 @@
                 <StackPanel>
                     <Label FontSize="12" Content="Кодировать/Декодировать" Height="26"/>
                     <RadioButton GroupName="EncryptWay" Name="encCheck" Content="Шифровать" Checked="RadioButton_Checked_1" Margin="4,3,0,0" Height="21"/>
-                    <RadioButton GroupName="EncryptWay" Name="decCheck" Content="Расшифровать" Margin="4,0,0,0" Height="21"/>
+                    <RadioButton GroupName="EncryptWay" Name="decCheck" Content="Расшифровать" Checked="RadioButton_Checked_1" Margin="4,0,0,0" Height="21"/>
                 </StackPanel>
             </Border>
 

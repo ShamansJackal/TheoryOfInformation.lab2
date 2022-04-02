@@ -40,9 +40,9 @@ namespace TheoryOfInformation.lab2.Encryptions
             for(byte i = 0; i < 8; i++)
             {
                 result += (number & 1) > 0 ? '1' : '0';
-                number <<= 1;
+                number >>= 1;
             }
-            return result;
+            return new string(result.Reverse().ToArray());
         }
 
         public static string IntToBin(this BigInteger bigint)

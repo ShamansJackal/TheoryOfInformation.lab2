@@ -21,7 +21,7 @@ namespace TheoryOfInformation.lab2
     public partial class MainWindow : Window
     {
         private bool _readFromFile = true;
-        private ushort _polynomePower = 4;
+        private ushort _polynomePower = 34;
 
         private IEncryption _encryption;
 
@@ -63,73 +63,77 @@ namespace TheoryOfInformation.lab2
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             MainBTN.IsEnabled = false;
+            await Task.Delay(100);
             await EncodeFucntion();
             MainBTN.IsEnabled = true;
         }
 
         private async Task EncodeFucntion()
         {
-            ulong beginState = Convert.ToUInt64(keyBox.Text, 2);
-
-            if (_readFromFile)
+            checked
             {
-                string path = fileUnit_in.OutputFile.Text;
-                byte[] bytesRaw;
+                ulong beginState = Convert.ToUInt64(keyBox.Text, 2);
 
-                using (FileStream SourceStream = new FileStream(path, FileMode.Open))
+                if (_readFromFile)
                 {
-                    bytesRaw = new byte[SourceStream.Length];
-                    await SourceStream.ReadAsync(bytesRaw, 0, (int)SourceStream.Length);
-                }
+                    string path = fileUnit_in.OutputFile.Text;
+                    byte[] bytesRaw;
 
-                byte[] bytes = _encryption.BuildKeyForFile(beginState, (ulong)bytesRaw.Length);
+                    using (FileStream SourceStream = new FileStream(path, FileMode.Open))
+                    {
+                        bytesRaw = new byte[SourceStream.Length];
+                        await SourceStream.ReadAsync(bytesRaw, 0, (int)SourceStream.Length);
+                    }
 
-                byte[] result = _encryption.Encrypte(bytesRaw, bytes);
-                if (_encode)
-                {
-                    string filename = path.Replace(".data", "");
-                    filename = filename.Insert(filename.LastIndexOf('\\') + 1, "dec_");
-                    File.WriteAllBytes(filename, result);
+                    byte[] bytes = _encryption.BuildKeyForFile(beginState, (ulong)bytesRaw.Length);
+
+                    byte[] result = _encryption.Encrypte(bytesRaw, bytes);
+                    if (!_encode)
+                    {
+                        string filename = path.Replace(".data", "");
+                        filename = filename.Insert(filename.LastIndexOf('\\') + 1, "dec_");
+                        File.WriteAllBytes(filename, result);
+                    }
+                    else
+                    {
+                        File.WriteAllBytes(path + ".data", result);
+                    }
+
+                    if (_visualisation)
+                    {
+                        string source = string.Join("", bytesRaw.Take(300).Select(x => ByteToStr(x)));
+                        string keyStr = string.Join("", bytes.Take(300).Select(x => ByteToStr(x)));
+                        string resStr = string.Join("", result.Take(300).Select(x => ByteToStr(x)));
+                        string reportStr = string.Join("\n", source, keyStr, resStr);
+
+                        ReportWindow report = new ReportWindow();
+                        report.outputText.Text = reportStr;
+                        report.Show();
+                    }
                 }
                 else
                 {
-                    File.WriteAllBytes(path + ".data", result);
-                }
+                    string text = textUnit_in.outputText.Text;
+                    BigInteger bigInteger = BinToDec(text);
 
-                if (_visualisation)
-                {
-                    string keyStr = string.Join("", bytes.Select(x => ByteToStr(x)));
-                    string source = string.Join("", bytes.Select(x => ByteToStr(x)));
-                    string resStr = string.Join("", bytes.Select(x => ByteToStr(x)));
-                    string reportStr = string.Join("\n", source, keyStr, resStr);
+                    string keyStr = _encryption.BuildKey(beginState, (ulong)textUnit_in.outputText.Text.Length);
+                    BigInteger key = BinToDec(keyStr);
 
-                    ReportWindow report = new ReportWindow();
-                    report.outputText.Text = reportStr;
-                    report.Show();
-                }
-            }
-            else
-            {
-                string text = textUnit_in.outputText.Text;
-                BigInteger bigInteger = BinToDec(text);
+                    BigInteger result = _encryption.Encrypte(bigInteger, key);
+                    string resBin = result.IntToBin();
+                    if (resBin[0] == '0') resBin = resBin.Substring(1);
+                    resBin = string.Concat(Enumerable.Repeat("0", text.Length - resBin.Length)) + resBin;
 
-                string keyStr = _encryption.BuildKey(beginState, (ulong)textUnit_in.outputText.Text.Length);
-                BigInteger key = BinToDec(keyStr);
+                    textUnit_in.outputText2.Text = resBin;
 
-                BigInteger result = _encryption.Encrypte(bigInteger, key);
-                string resBin = result.IntToBin();
-                if (resBin[0] == '0') resBin = resBin.Substring(1);
-                resBin = string.Concat(Enumerable.Repeat("0", text.Length - resBin.Length)) + resBin;
+                    if (_visualisation)
+                    {
+                        string reportStr = string.Join("\n", text, keyStr, resBin);
 
-                textUnit_in.outputText2.Text = resBin;
-
-                if (_visualisation)
-                {
-                    string reportStr = string.Join("\n", text, keyStr, resBin);
-
-                    ReportWindow report = new ReportWindow();
-                    report.outputText.Text = reportStr;
-                    report.Show();
+                        ReportWindow report = new ReportWindow();
+                        report.outputText.Text = reportStr;
+                        report.Show();
+                    }
                 }
             }
         }
