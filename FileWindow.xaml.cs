@@ -28,7 +28,6 @@ namespace TheoryOfInformation.lab2
             {
                 Multiselect = false,
                 Filter = encrypt ? "All files (*.*)|*.*" : "Encrypted files (*.data)|*.data|All files (*.*)|*.*",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
             };
             if (openFileDialog.ShowDialog() == true)
             {
