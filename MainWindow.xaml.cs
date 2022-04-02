@@ -98,7 +98,13 @@ namespace TheoryOfInformation.lab2
 
                 if (_visualisation)
                 {
+                    string keyStr = string.Join("", bytes.Select(x => ByteToStr(x)));
+                    string source = string.Join("", bytes.Select(x => ByteToStr(x)));
+                    string resStr = string.Join("", bytes.Select(x => ByteToStr(x)));
+                    string reportStr = string.Join("\n", source, keyStr, resStr);
+
                     ReportWindow report = new ReportWindow();
+                    report.outputText.Text = reportStr;
                     report.Show();
                 }
             }
@@ -119,7 +125,10 @@ namespace TheoryOfInformation.lab2
 
                 if (_visualisation)
                 {
+                    string reportStr = string.Join("\n", text, keyStr, resBin);
+
                     ReportWindow report = new ReportWindow();
+                    report.outputText.Text = reportStr;
                     report.Show();
                 }
             }

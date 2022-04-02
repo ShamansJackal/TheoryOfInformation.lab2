@@ -34,6 +34,17 @@ namespace TheoryOfInformation.lab2.Encryptions
             return new string(builder.ToString().Reverse().ToArray());
         }
 
+        public static string ByteToStr(byte number)
+        {
+            string result = "";
+            for(byte i = 0; i < 8; i++)
+            {
+                result += (number & 1) > 0 ? '1' : '0';
+                number <<= 1;
+            }
+            return result;
+        }
+
         public static string IntToBin(this BigInteger bigint)
         {
             var bytes = bigint.ToByteArray();

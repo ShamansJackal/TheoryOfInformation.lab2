@@ -5,9 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TheoryOfInformation.lab2"
         mc:Ignorable="d"
-        Title="ReportWindow" Height="450" Width="800">
+        Title="ReportWindow" MinHeight="170" MinWidth="400" Height="174" Width="686">
     <Grid>
-        <TextBox x:Name="outputText" TextWrapping="NoWrap" Margin="4,4,4,39" FontSize="16" Text="Отчёт"/>
+        <Label FontSize="15" Content="Исходный код:" HorizontalAlignment="Left" Width="108" Height="80" VerticalAlignment="Top"/>
+        <Label Margin="2,24,0,24" FontSize="15" Content="Ключ:" HorizontalAlignment="Left" Width="106"/>
+        <Label Margin="2,48,0,48" FontSize="15" Content="Результат:" HorizontalAlignment="Left" Width="106"/>
+        <TextBox HorizontalScrollBarVisibility="Visible" x:Name="outputText" TextWrapping="NoWrap" Margin="113,4,4,39" FontSize="16" Text="Отчёт"/>
         <Button Click="Button_Click"  Content="Ok" Margin="4,0,4,4" Height="35" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>
