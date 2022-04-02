@@ -6,7 +6,7 @@ using System.Text;
 using static TheoryOfInformation.lab2.Encryptions.TextWorker;
 
 namespace TheoryOfInformation.lab2.Encryptions.Models
-{
+{//Не работает, надо починить
     public class LFRS : IEncryption
     {
         private int _size;
