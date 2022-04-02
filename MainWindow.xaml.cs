@@ -27,7 +27,7 @@ namespace TheoryOfInformation.lab1
 
         private bool _encode = false;
         private bool Encode { get => _encode; set { if (fileUnit_in != null) fileUnit_in.encrypt = value; _encode = value; } }
-        public bool _visualisation { get; set; }
+        public bool _visualisation { get; set; } = true;
 
 
         public MainWindow()
@@ -95,6 +95,12 @@ namespace TheoryOfInformation.lab1
                 {
                     File.WriteAllBytes(path + ".data", result);
                 }
+
+                if (_visualisation)
+                {
+                    ReportWindow report = new ReportWindow();
+                    report.Show();
+                }
             }
             else
             {
@@ -110,6 +116,12 @@ namespace TheoryOfInformation.lab1
                 resBin = string.Concat(Enumerable.Repeat("0", text.Length - resBin.Length)) + resBin;
 
                 textUnit_in.outputText2.Text = resBin;
+
+                if (_visualisation)
+                {
+                    ReportWindow report = new ReportWindow();
+                    report.Show();
+                }
             }
         }
 
