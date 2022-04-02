@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
-using static TheoryOfInformation.lab1.Encryptions.TextWorker;
+using static TheoryOfInformation.lab2.Encryptions.TextWorker;
 
-namespace TheoryOfInformation.lab1.Encryptions.Models
+namespace TheoryOfInformation.lab2.Encryptions.Models
 {
     public class LFRS_fast : IEncryption
     {

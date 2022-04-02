@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 
-namespace TheoryOfInformation.lab1.Properties
+namespace TheoryOfInformation.lab2.Properties
 {
     /// <summary>
     ///   Класс ресурсов со строгим типом для поиска локализованных строк и пр.

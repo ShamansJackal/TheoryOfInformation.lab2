@@ -4,7 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 
-namespace TheoryOfInformation.lab1.Encryptions
+namespace TheoryOfInformation.lab2.Encryptions
 {
     public delegate string Operation(string text, string key);
 

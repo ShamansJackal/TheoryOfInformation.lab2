@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace TheoryOfInformation.lab1
+namespace TheoryOfInformation.lab2
 {
     /// <summary>
     /// Логика взаимодействия для ReportWindow.xaml
